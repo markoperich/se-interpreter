@@ -49,7 +49,7 @@ var prefixes = {
         } else {
             testRun.do('takeScreenshot', [], null, function(err, base64Image) {
                 var decodedImage = new Buffer(base64Image, 'base64');
-                fs.writeFile(argv.screenshotsPath + '/' + testRun.script.steps[0].text+ '-' + testRun.name + '-step-'+ testRun.stepIndex +'-FAILED.png', decodedImage)
+                fs.writeFile(argv.screenshotsPath + '/' + testRun.script.steps[0].text+ '-' + testRun.name + '-step-'+ (1 + testRun.stepIndex) +'-FAILED.png', decodedImage)
             });
           callback({ 'success': false, 'error': new Error(getter.cmp ? getter.cmp + ' does not match' : getter.name + ' is false') });
         }
@@ -749,12 +749,13 @@ var opt = require('optimist')
   .default('quiet', false).describe('quiet', 'no per-step output')
   .default('noPrint', false).describe('noPrint', 'no print step output')
   .default('silent', false).describe('silent', 'no non-error output')
-  .default('parallel', 1).describe('parallel', 'number of tests to run in parallel')
+    .default('parallel', 1).describe('parallel', 'number of tests to run in parallel')
+    .default('screenshotsPath', '.').describe('screenshotsPath', 'path where screenshots are saved')
   .describe('dataConfig', 'the default dataConfig')
   .describe('dataSource', 'path to data source module')
   .describe('listener', 'path to listener module')
   .describe('executorFactory', 'path to factory for extra type executors')
-  .demand(1) // At least 1 script to execute.
+  .demand(1) // At least 1 script to execute
   .usage('Usage: $0 [--option value...] [script-path...]\n\nPrefix browser options like browserName with "browser-", e.g. "--browser-browserName=firefox".\nPrefix driver options like host with "driver-", eg --driver-host=webdriver.foo.com.\nPrefix listener module options with "listener-".');
 
 // Process arguments.
