@@ -80,6 +80,10 @@ var prefixes = {
           if (hr[0] + hr[1]*1e-9 < testRun.script.timeoutSeconds) {
             setTimeout(test, 500);
           } else {
+              testRun.do('takeScreenshot', [], null, function(err, base64Image) {
+                  var decodedImage = new Buffer(base64Image, 'base64');
+                  fs.writeFile(argv.screenshotsPath + '/' + testRun.script.steps[0].text+ '-' + testRun.name + '-step-'+ (1 + testRun.stepIndex) +'-FAILED.png', decodedImage)
+              });
             callback({ 'success': false, 'error': info.error || new Error('Wait timed out.') });
           }
         }
