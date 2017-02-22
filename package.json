@@ -1,17 +1,16 @@
 {
-  "author": "David Stark <david.stark@zarkonnen.com>",
+  "author": "Marko Perich (fork fromD https://github.com/Zarkonnen/se-interpreter.git)",
   "name": "se-interpreter",
   "description": "Command-line interpreter for Selenium Builder test scripts.",
   "tags": ["selenium", "webdriver", "testing"],
-  "version": "1.0.9",
-  "homepage": "http://www.sebuilder.com/",
-  "repository": {
+  "version": "1.1.0",
+    "repository": {
     "type": "git",
-    "url": "https://github.com/Zarkonnen/se-interpreter.git"
+    "url": "https://github.com/markoperich/se-interpreter.git"
   },
   "bugs": {
-    "url": "https://github.com/Zarkonnen/se-interpreter/issues",
-    "email": "david.stark@zarkonnen.com"
+    "url": "https://github.com/markoperich/se-interpreter/issues",
+    "email": "marko.perich at gomail dot com"
   },
   "main": "interpreter",
   "bin": "./interpreter.js",

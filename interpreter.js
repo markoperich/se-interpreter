@@ -16,7 +16,7 @@
 * limitations under the License.
 */
 
-var interpreter_version = "1.0.8";
+var interpreter_version = "1.1.0";
 var webdriver = require('wd');
 var S = require('string');
 var glob = require('glob');
@@ -31,7 +31,10 @@ var sax = require('sax');
 var prefixes = {
   'assert': function(getter, testRun, callback) {
     getter.run(testRun, function(info) {
-      if (info.error) { callback(info); return; }
+      if (info.error) {
+          callback(info);
+          return;
+      }
       var match = getter.cmp ? ("" + info.value) == testRun.p(getter.cmp) : info.value;
 
       if (testRun.currentStep().negated) {
@@ -44,6 +47,10 @@ var prefixes = {
         if (match) {
           callback({ 'success': true });
         } else {
+            testRun.do('takeScreenshot', [], null, function(err, base64Image) {
+                var decodedImage = new Buffer(base64Image, 'base64');
+                fs.writeFile(argv.screenshotsPath + '/' + testRun.script.steps[0].text+ '-' + testRun.name + '-step-'+ testRun.stepIndex +'-FAILED.png', decodedImage)
+            });
           callback({ 'success': false, 'error': new Error(getter.cmp ? getter.cmp + ' does not match' : getter.name + ' is false') });
         }
       }
@@ -205,6 +212,7 @@ TestRun.prototype.next = function(callback) {
     if (prefix) {
       prefix(executor, this, wrappedCallback);
     } else {
+      this.argv=argv;
       executor.run(this, wrappedCallback);
     }
   } catch (e) {
