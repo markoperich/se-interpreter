@@ -10,4 +10,5 @@ node_modules/
 Icon?
 ehthumbs.db
 Thumbs.db
-
+.idea/
+se-interpreter.iml
