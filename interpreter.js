@@ -16,7 +16,7 @@
 * limitations under the License.
 */
 
-var interpreter_version = "1.1.0";
+var interpreter_version = "1.2.0";
 var webdriver = require('wd');
 var S = require('string');
 var glob = require('glob');
